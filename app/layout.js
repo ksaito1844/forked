@@ -1,6 +1,5 @@
 import localFont from "next/font/local";
 import "./globals.css";
-import AgoraRTC, { AgoraRTCProvider } from "agora-rtc-react";
 import { AgoraProvider } from "@/context/voiceContext";
 
 const geistSans = localFont({

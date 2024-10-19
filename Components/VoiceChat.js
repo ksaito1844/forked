@@ -14,6 +14,8 @@ const VoiceChat = () => {
         toggleMute,
         isMuted,
         error,
+        remoteUsers,
+        localUserId
     } = useContext(AgoraContext);
 
     return (
@@ -33,6 +35,23 @@ const VoiceChat = () => {
                     <button className="leave-button" onClick={leaveChannel}>
                         Leave
                     </button>
+
+                    <div className="connected-users">
+                        <h4>Connected Users:</h4>
+                        <div className="user-id">
+                            <strong>Local User ID:</strong> {localUserId}
+                        </div>
+                        {remoteUsers.length > 0 && (
+                            <div>
+                                <h4>Remote Users:</h4>
+                                {remoteUsers.map((user) => (
+                                    <div key={user.uid}>
+                                        User ID: {user.uid}
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </div>
                 </div>
             )}
         </div>

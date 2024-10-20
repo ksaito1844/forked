@@ -4,7 +4,7 @@ import VoiceChat from "@/Components/VoiceChat";
 
 export default function Home() {
   return (
-    <div >
+    <div>
       <VoiceChat />
     </div>
   );

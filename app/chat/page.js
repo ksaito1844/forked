@@ -4,7 +4,10 @@ import VoiceChat from '@/Components/VoiceChat'
 
 const Page = () => {
     return (
-        <VoiceChat />
+        // <VoiceChat />
+        <div>
+            In progress
+        </div>
     )
 }
 

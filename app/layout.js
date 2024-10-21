@@ -14,8 +14,8 @@ const geistMono = localFont({
 });
 
 export const metadata = {
-  title: "Voice chat app",
-  description: "This is voice chat app for testing purposes",
+  title: "Globalie",
+  description: "Under development",
 };
 
 export default function RootLayout({ children }) {

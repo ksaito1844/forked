@@ -6,7 +6,7 @@ const CallButton = ({ onClick }) => {
     const { isJoined } = useContext(AgoraContext);
     return (
         <button onClick={onClick}>
-            {isJoined ? 'Leave' : 'Start Audio Chat'}
+            {isJoined ? 'Leave' : 'Test (only audio chat feature available)'}
         </button>
     );
 };

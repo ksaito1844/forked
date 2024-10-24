@@ -14,6 +14,7 @@ const AgoraProvider = ({ children }) => {
     const clientConfigRef = useRef({ codec: 'vp8', mode: 'rtc' });
     const [client, setClient] = useState(null);
     const [localAudioTrack, setLocalAudioTrack] = useState(null);
+    const [remoteAudioTrack, setRemoteAudioTrack] = useState(null);
     const [remoteUsers, setRemoteUsers] = useState([]);
     const [isMuted, setIsMuted] = useState(false);
     const [isJoined, setIsJoined] = useState(false);
@@ -43,6 +44,7 @@ const AgoraProvider = ({ children }) => {
             if (mediaType === 'audio') {
                 client.subscribe(user, mediaType).then(() => {
                     user.audioTrack.play();
+                    setRemoteAudioTrack(user.audioTrack);
                     setRemoteUsers((prevUsers) => {
                         const exists = prevUsers.find((u) => u.uid === user.uid);
                         return exists ? prevUsers : [...prevUsers, user];
@@ -55,6 +57,7 @@ const AgoraProvider = ({ children }) => {
 
         const handleUserUnpublished = (user) => {
             setRemoteUsers((prevUsers) => prevUsers.filter((u) => u.uid !== user.uid));
+            setRemoteAudioTrack(null);
         };
 
         client.on('user-published', handleUserPublished);
@@ -94,6 +97,11 @@ const AgoraProvider = ({ children }) => {
                 localAudioTrack.close();
                 setLocalAudioTrack(null);
             }
+            if (remoteAudioTrack) {
+                remoteAudioTrack.stop();
+                remoteAudioTrack.close();
+                setRemoteAudioTrack(null);
+            }
             setRemoteUsers([]);
         } catch (err) {
             console.error('Failed to leave channel:', err);
@@ -130,6 +138,7 @@ const AgoraProvider = ({ children }) => {
                 value={{
                     client,
                     localAudioTrack,
+                    remoteAudioTrack,
                     remoteUsers,
                     isMuted,
                     isJoined,

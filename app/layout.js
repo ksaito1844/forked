@@ -1,6 +1,7 @@
 import localFont from "next/font/local";
 import "./globals.css";
 import { AgoraProvider } from "@/context/voiceContext";
+import { SocketProvider } from "@/context/SocketContext";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -23,7 +24,9 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <AgoraProvider>
-          {children}
+          <SocketProvider>
+            {children}
+          </SocketProvider>
         </AgoraProvider>
       </body>
     </html>

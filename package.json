@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-transcribe-streaming": "^3.677.0",
+    "@aws-sdk/node-http-handler": "^3.374.0",
     "agora-rtc-react": "^2.3.0",
     "agora-rtc-sdk-ng": "^4.22.1",
     "express": "^4.21.1",

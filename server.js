@@ -1,11 +1,18 @@
 const express = require('express');
 const next = require('next');
 const http = require('http');
+const { NodeHttpHandler } = require("@aws-sdk/node-http-handler");
 const { Server } = require('socket.io');
 const { 
   TranscribeStreamingClient,
   StartStreamTranscriptionCommand
 } = require("@aws-sdk/client-transcribe-streaming");
+
+const httpHandler = new NodeHttpHandler({
+  connectionTimeout: 10000,
+  requestTimeout: 60000,
+  httpAgent: new require("http").Agent({ keepAlive: true })
+});
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
@@ -13,6 +20,7 @@ const handle = app.getRequestHandler();
 
 const transcribeClient = new TranscribeStreamingClient({
   region: process.env.AWS_REGION, // Ensure this matches your AWS region
+  requestHandler: httpHandler
 });
 
 app.prepare().then(() => {

@@ -12,7 +12,7 @@ const app = next({ dev });
 const handle = app.getRequestHandler();
 
 const transcribeClient = new TranscribeStreamingClient({
-  region: "us-west-2", // Ensure this matches your AWS region
+  region: process.env.AWS_REGION, // Ensure this matches your AWS region
 });
 
 app.prepare().then(() => {
@@ -67,13 +67,10 @@ app.prepare().then(() => {
               
               if (isFinal) {
                 console.log('Emitting final transcription: ', transcript);
-                console.log("++++++++++++++++++++++++ Transcript", transcript);
                 socket.emit('transcription', { text: transcript, isFinal: true });
                 lastTranscript = transcript;
-                console.log("++++++++++++++++++++++++ Last Transcript", lastTranscript);
               } else  {
                 const newPart = transcript.substring(lastTranscript.length);
-                console.log("++++++++++++++++++++++++ New Part", newPart);
                 if (newPart.trim() !== '') {
                   console.log('Emitting partial transcription:', newPart);
                   socket.emit('transcription', { text: newPart, isFinal: false });

@@ -9,8 +9,6 @@ const {
 } = require("@aws-sdk/client-transcribe-streaming");
 
 const httpHandler = new NodeHttpHandler({
-  connectionTimeout: 10000,
-  requestTimeout: 60000,
   httpAgent: new require("http").Agent({ keepAlive: true })
 });
 

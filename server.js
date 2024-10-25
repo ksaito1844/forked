@@ -8,9 +8,9 @@ const {
   StartStreamTranscriptionCommand
 } = require("@aws-sdk/client-transcribe-streaming");
 
-const httpHandler = new NodeHttpHandler({
-  httpAgent: new require("http").Agent({ keepAlive: true })
-});
+// const httpHandler = new NodeHttpHandler({
+//   httpAgent: new require("http").Agent({ keepAlive: true })
+// });
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
@@ -18,7 +18,7 @@ const handle = app.getRequestHandler();
 
 const transcribeClient = new TranscribeStreamingClient({
   region: process.env.AWS_REGION, // Ensure this matches your AWS region
-  requestHandler: httpHandler
+  // requestHandler: httpHandler
 });
 
 app.prepare().then(() => {
